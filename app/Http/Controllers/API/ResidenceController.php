@@ -53,19 +53,14 @@ class ResidenceController extends Controller
     }
 
     public function update(Request $request, $id)
-    {   
-        // return response()->json(['message' => 'oke'], 200);
-        // dd($request);
+    {    
         $request->validate([
             'name'              => 'required|max:255',
             'unit_number'       => 'required', 
             'type'              => 'required',
             'desc'              => 'required', 
         ]);
-
-        // return response()->json(['data' => $request->all()], 200);
-        // $Residence = Residence::find($id);
-        // return response()->json(['data' => $Residence]);
+ 
         
         Residence::where('id', $id)
         ->update
@@ -76,13 +71,7 @@ class ResidenceController extends Controller
             'desc'              => $request->desc, 
         ]);
 
-       /*  $Residence->update([
-            'name'              => $request->name,
-            'unit_number'       => $request->unit_number,
-            'type'              => $request->type,
-            'desc'              => $request->desc,  
-        ]); */
-        // $data = Residence::where('id','=',$id)->first();
+        
         $data = Residence::where('id','=',$request->id)->get();
 
         if ($data) 
@@ -96,6 +85,33 @@ class ResidenceController extends Controller
         
 
     }
+
+    /* public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'unit_number' => 'required',
+            'type' => 'required',
+            'desc' => 'required',
+        ]);
+
+        $Residence = Residence::where('id', $request->id)->first();
+
+        if (!$Residence) {
+            return response()->json(['message' => 'Data Not Found'], 404);
+        }
+
+        $update = $Residence->update([
+            'name' => $request->name,
+            'unit_number' => $request->unit_number,
+            'type' => $request->type,
+            'desc' => $request->desc
+        ]);
+
+        if (!$update) {
+            return response()->json(['message'])
+        }
+    } */
 
     public function store(Request $request)
     { 
